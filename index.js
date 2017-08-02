@@ -20,6 +20,9 @@ require("./services/passport");
 const authRoute = require("./routes/auth");
 
 authRoute(app);
+app.get('/', (req,res) => {
+  res.send('Homepage')
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
