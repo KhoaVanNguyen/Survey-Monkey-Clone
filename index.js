@@ -19,7 +19,6 @@ require("./services/passport");
 
 const authRoute = require("./routes/auth");
 
-// auth
 authRoute(app);
 
 const PORT = process.env.PORT || 3000;
