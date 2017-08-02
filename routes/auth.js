@@ -16,4 +16,14 @@ module.exports = app => {
       res.redirect("/");
     }
   );
+  app.get("/api/current_user", (req, res) => {
+    console.log("Hello");
+    // console.log(req);
+    res.send(req.user);
+  });
+  app.get('/api/logout', (req,res) => {
+    req.logout()
+    res.send('Logout !')
+    
+  })
 };
