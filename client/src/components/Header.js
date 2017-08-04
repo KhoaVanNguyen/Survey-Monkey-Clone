@@ -1,24 +1,50 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 class Header extends Component {
+  componentWillReceiveProps(nextProps) {
+    console.log("will receive props" + JSON.stringify(nextProps));
+  }
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return (
+          <li>
+            {" "}<a href="/auth/google"> Login with Google </a>{" "}
+          </li>
+        );
+      default:
+        return (
+          <li>
+            {" "}<a href="/api/logout"> Logout </a>{" "}
+          </li>
+        );
+    }
+  }
   render() {
-    return <nav>
+    ///* login roi thi khong thay Landing page nua   */
+    return (
+      <nav>
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo">
-            Logo
-          </a>
-          <ul id="nav-mobile" className="right ">
-            <li>
-              <a href="sass.html">Sass</a>
-            </li>
-            <li>
-              <a href="badges.html">Components</a>
-            </li>
-            <li>
-              <a href="collapsible.html">JavaScript</a>
-            </li>
+          <Link
+            to={this.props.auth ? "/surveys" : "/"}
+            className="brand-logo left"
+          >
+            Emaily
+          </Link>
+
+          <ul className="right">
+            {this.renderContent()}
           </ul>
         </div>
-      </nav>;
+      </nav>
+    );
   }
 }
-export default Header;
+const mapStateToProps = ({ auth }) => {
+  console.log("mapStateToProps " + JSON.stringify(auth));
+  return { auth: auth };
+};
+export default connect(mapStateToProps, null)(Header);
