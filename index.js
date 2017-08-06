@@ -23,9 +23,9 @@ const authRoute = require("./routes/auth");
 const paymentRoute = require('./routes/payment')
 authRoute(app);
 paymentRoute(app);
-app.get('/', (req,res) => {
-  res.send('Homepage')
-})
+// app.get('/', (req,res) => {
+//   res.send('Homepage')
+// })
 
 if  ( process.env.NODE_ENV === 'production' )  {
 
