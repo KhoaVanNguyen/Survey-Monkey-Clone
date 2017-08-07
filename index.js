@@ -17,12 +17,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 require("./models/User");
+require('./models/Survey')
 require("./services/passport");
 
 const authRoute = require("./routes/auth");
 const paymentRoute = require('./routes/payment')
+const surveyRoute = require('./routes/surveys')
 authRoute(app);
 paymentRoute(app);
+surveyRoute(app)
 // app.get('/', (req,res) => {
 //   res.send('Homepage')
 // })
