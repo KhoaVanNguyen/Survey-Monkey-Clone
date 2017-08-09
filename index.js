@@ -5,8 +5,8 @@ const app = express(); // it's just a function
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-mongoose.connect(keys.mongoURI);
-
+// mongoose.connect(keys.mongoURI);
+mongoose.connect('mongodb://localhost:27017');
 app.use(bodyParser.json())
 app.use(
   cookieSession({

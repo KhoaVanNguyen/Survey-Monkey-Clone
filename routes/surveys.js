@@ -5,14 +5,26 @@ const requireCredits = require("../middlewares/requireCredits");
 const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 module.exports = app => {
-  app.get("/api/surveys", requireLogin, async (req, res) => {
-    const surveys = await Survey.find({ _user: req.user.id }) ;
+  app.delete("/api/surveys/:surveyId", async (req, res) => {
+     const { surveyId } = req.params;
+    console.log(req.params);
+    console.log("alo");
+    // console.log(req)
     try {
-      console.log('data')
-      console.log(surveys)
-      res.send({ results: surveys  })
+      await Survey.findByIdAndRemove(surveyId);
+      res.send({ result: "delete survey with Id: " + surveyId });
     } catch (error) {
-      res.status(401).send({error})
+      res.status(401).send({ error });
+    }
+  });
+  app.get("/api/surveys", requireLogin, async (req, res) => {
+    const surveys = await Survey.find({ _user: req.user.id });
+    try {
+      console.log("data");
+      console.log(surveys);
+      res.send({ results: surveys });
+    } catch (error) {
+      res.status(401).send({ error });
     }
   });
 

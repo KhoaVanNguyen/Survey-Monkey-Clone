@@ -6,7 +6,7 @@ import Landing from "./Landing";
 import Dashboard from './Dashboard'
 import SurveyNew from './surveys/SurveyNew'
 import { connect } from "react-redux";
-import { fetchUser, fetchSurvey } from "../actions/index";
+import { fetchUser } from "../actions/index";
 
 class App extends Component {
   componentDidMount() {
@@ -26,4 +26,4 @@ class App extends Component {
     );
   }
 }
-export default connect(null, { fetchUser, fetchSurvey })(App);
+export default connect(null, { fetchUser })(App);

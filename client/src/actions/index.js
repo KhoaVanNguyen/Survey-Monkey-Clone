@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER, SEND_SURVEY, FETCH_SURVEY } from "./type";
+import { FETCH_USER, SEND_SURVEY, FETCH_SURVEY, DELETE_SURVEY } from "./type";
 
 export const fetchUser = () => async dispatch => {
   const response = await axios.get("/api/current_user");
@@ -19,6 +19,23 @@ export const sendSurvey = formValues => async dispatch => {
   dispatch({ type: SEND_SURVEY, payload: res  });
 }
 export const fetchSurvey = () => async dispatch => {
-  const res = await axios.get('/api/surveys')
-  dispatch({ type: FETCH_SURVEY, payload: res.data.results  })
+  try {
+    const res = await axios.get('/api/surveys')  
+    dispatch({ type: FETCH_SURVEY, payload: res.data.results });
+  } catch (error) {
+    // dispatch({ type: FETCH_SURVEY, payload: [] });  
+    console.log('cant fetch Survey')
+  }
+  
+}
+export const deleteSurvey = id => async dispatch => {
+  const url = `/api/surveys/${id}`
+  try {
+    const res = await axios.delete(url)
+    dispatch({ type: DELETE_SURVEY, payload: id});
+  } catch (error) {
+    // dispatch({ type: DELETE_SURVEY, payload: [] });  
+    console.log('cant delete survey')
+  
+  }
 }

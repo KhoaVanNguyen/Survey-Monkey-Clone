@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchSurvey } from "../../actions/index";
+import { fetchSurvey, deleteSurvey } from "../../actions/index";
 class SurveyList extends Component {
-  componentWillMount() {
-    console.log("data in survey list");
-    console.log(this.props.surveyList);
-  }
 
   renderContent() {
+      console.log('this.props.surveyList')
+      console.log(this.props.surveyList)
     if (this.props.surveyList.length <= 0) {
       return (
         <div>
@@ -15,11 +13,11 @@ class SurveyList extends Component {
             {" "}You haven't created any surveys yet!. Click + to add new{" "}
           </h4>{" "}
         </div>
+
       );
     }
     return this.props.surveyList.map(item => {
-      return (
-        <div key={item.dateSent}>
+      return <div key={item.dateSent} style={{ borderWidth: "5px", borderColor: "blue" }}>
           <h6>
             {" "}{item.title}{" "}
           </h6>
@@ -29,12 +27,15 @@ class SurveyList extends Component {
           <p>
             {" "}{item.body}{" "}
           </p>
-        </div>
-      );
+          <button onClick={() => this.props.deleteSurvey(item._id)} className="btn right red white-text">
+            Delete
+          </button>
+        </div>;
     });
   }
 
   render() {
+    console.log('in render')
     return (
       <div>
         {this.renderContent()}
@@ -44,9 +45,11 @@ class SurveyList extends Component {
 }
 
 const mapStateToProps = ({ survey }) => {
+  console.log("in mapStateToProps");
+  console.log(survey)
   return {
     surveyList: survey
   };
 };
 
-export default connect(mapStateToProps, { fetchSurvey })(SurveyList);
+export default connect(mapStateToProps, { fetchSurvey, deleteSurvey})(SurveyList);
