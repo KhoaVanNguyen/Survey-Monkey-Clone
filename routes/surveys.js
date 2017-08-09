@@ -5,6 +5,17 @@ const requireCredits = require("../middlewares/requireCredits");
 const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 module.exports = app => {
+  app.get("/api/surveys", requireLogin, async (req, res) => {
+    const surveys = await Survey.find({ _user: req.user.id }) ;
+    try {
+      console.log('data')
+      console.log(surveys)
+      res.send({ results: surveys  })
+    } catch (error) {
+      res.status(401).send({error})
+    }
+  });
+
   app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body;
     const survey = new Survey({
