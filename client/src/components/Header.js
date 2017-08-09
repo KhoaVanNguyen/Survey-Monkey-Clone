@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Payment from "./Payment";
 class Header extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log("will receive props" + JSON.stringify(nextProps));
+    // console.log("will receive props" + JSON.stringify(nextProps));
   }
   renderContent() {
     switch (this.props.auth) {
@@ -51,7 +51,7 @@ class Header extends Component {
   }
 }
 const mapStateToProps = ({ auth }) => {
-  console.log("mapStateToProps " + JSON.stringify(auth));
+  // console.log("mapStateToProps " + JSON.stringify(auth));
   return { auth: auth };
 };
 export default connect(mapStateToProps, null)(Header);
